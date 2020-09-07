@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { useAuth } from '../hooks/useAuth'
 import { useCollections } from '../hooks/useCollections'
 import AceWidget from '../components/AceWidget'
+import Button from '@material-ui/core/Button'
 
 const CollectionsForm = ({ navigate, id }) => {
   useAuth(navigate)
