@@ -66,17 +66,12 @@ const CollectionDataForm = props => {
   const AceWidgetWrapper = props => {
     const {
       schema: { title },
-      id,
       onChange,
+      value,
     } = props
-    return (
-      <AceWidget
-        title={title}
-        id={id}
-        formState={formState}
-        onChange={onChange}
-      />
-    )
+    const onValueChane = e => onChange(e)
+
+    return <AceWidget title={title} onChange={onValueChane} value={value} />
   }
 
   const widgets = {
@@ -125,7 +120,6 @@ const CollectionDataForm = props => {
         onSubmit={onSubmit}
         formData={formState}
         widgets={widgets}
-        onChange={({ formData }) => setFormState(formData)}
       >
         <div className='padd_top_bott'>
           <Button variant='contained' color='primary' type='submit'>

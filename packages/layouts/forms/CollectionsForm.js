@@ -17,17 +17,12 @@ const CollectionsForm = ({ navigate, id }) => {
   const AceWidgetWrapper = props => {
     const {
       schema: { title },
-      id,
       onChange,
+      value,
     } = props
-    return (
-      <AceWidget
-        title={title}
-        id={id}
-        formState={formState}
-        onChange={onChange}
-      />
-    )
+    const onValueChane = e => onChange(e)
+
+    return <AceWidget title={title} onChange={onValueChane} value={value} />
   }
 
   const widgets = {
@@ -63,7 +58,7 @@ const CollectionsForm = ({ navigate, id }) => {
   }
 
   const onSubmit = ({ formData }) => {
-    const data = { ...formData, jfSchema, jfUiSchema }
+    const data = { ...formData }
     const type = 'collections'
     formData._id
       ? dispatch(updateItem({ type, data }))
@@ -87,7 +82,6 @@ const CollectionsForm = ({ navigate, id }) => {
         formData={formState}
         uiSchema={uiSchema}
         widgets={widgets}
-        onChange={({ formData }) => setFormState(formData)}
       >
         <div className='padd_top_bott'>
           <Button variant='contained' color='primary' type='submit'>

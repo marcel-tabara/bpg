@@ -3,11 +3,14 @@ import ComponentInfo from '@bpgen/layouts/modals/ComponentInfo'
 import ComponentProps from '@bpgen/layouts/modals/ComponentProps'
 import ProjectSettings from '@bpgen/layouts/modals/ProjectSettings'
 import React from 'react'
+import ImportDefForm from '@bpgen/layouts/modals/ImportDefForm'
 
 export const getModalComponent = modals => {
   const currentModal = modals[modals.length - 1]
 
   switch (currentModal.type) {
+    case 'importDef':
+      return <ImportDefForm />
     case 'projectSettings':
       return <ProjectSettings />
     case 'component_info':

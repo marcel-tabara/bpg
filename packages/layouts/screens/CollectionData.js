@@ -24,6 +24,7 @@ import isEmpty from 'lodash/isEmpty'
 import sortBy from 'lodash/sortBy'
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { addModal } from '@bpgen/services'
 import { useAuth } from '../hooks/useAuth'
 import { useAlertDialog } from '../hooks/useAlertDialog'
 import { useCollections } from '../hooks/useCollections'
@@ -140,6 +141,8 @@ const CollectionData = ({ id, navigate }) => {
     setAlertDialog({ open: false, id: null })
   }
 
+  const importDef = () => dispatch(addModal({ type: 'importDef', data: {} }))
+
   return (
     <>
       <AlertDialog
@@ -172,8 +175,21 @@ const CollectionData = ({ id, navigate }) => {
         </Grid>
         {selectedCollection && selectedCollection.title !== 'projects' && (
           <Grid item xs={5} className='rightButton'>
-            <Button onClick={() => addNew()} component='button' color='primary'>
+            <Button
+              onClick={() => addNew()}
+              variant='outlined'
+              color='primary'
+              component='span'
+            >
               Add
+            </Button>
+            <Button
+              onClick={importDef}
+              variant='outlined'
+              color='secondary'
+              component='span'
+            >
+              Import def
             </Button>
             <input
               accept='js'
