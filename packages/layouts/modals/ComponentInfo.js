@@ -1,7 +1,7 @@
 import Container from '@material-ui/core/Container'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import Accordion from '@material-ui/core/Accordion'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
@@ -9,6 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import React from 'react'
 import { useModals } from '../hooks/useModals'
 import { useCollections } from './../hooks/useCollections'
+import get from 'lodash/get'
 
 const useStyles = makeStyles(theme => ({
   title: { flexGrow: 1 },
@@ -23,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const ProjectSettings = () => {
+const ComponentInfo = () => {
   const { modals } = useModals()
   const currentModal = modals[modals.length - 1]
 
@@ -41,8 +42,8 @@ const ProjectSettings = () => {
   const getComponentProps = () => {
     return componentProps.map(e => {
       return (
-        <ExpansionPanel key={e.title}>
-          <ExpansionPanelSummary
+        <Accordion key={e.title}>
+          <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls='panel1a-content'
             id='panel1a-header'
@@ -50,11 +51,11 @@ const ProjectSettings = () => {
             <Typography className={classes.heading}>
               {e.title} : {e.propTypeProp}
             </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          </AccordionSummary>
+          <AccordionDetails>
             <Typography>{e.description}</Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+          </AccordionDetails>
+        </Accordion>
       )
     })
   }
@@ -70,7 +71,11 @@ const ProjectSettings = () => {
           label='Provider'
           variant='outlined'
           color='secondary'
-          defaultValue={providers.find(e => e._id === provider).data.title}
+          defaultValue={get(
+            providers.find(e => e._id === provider),
+            'data.title',
+            ''
+          )}
           disabled
         />
         <TextField
@@ -78,7 +83,11 @@ const ProjectSettings = () => {
           label='Techno'
           variant='outlined'
           color='secondary'
-          defaultValue={technos.find(e => e._id === techno).data.title}
+          defaultValue={get(
+            technos.find(e => e._id === techno),
+            'data.title',
+            ''
+          )}
           disabled
         />
         <TextField
@@ -86,7 +95,11 @@ const ProjectSettings = () => {
           label='PropType'
           variant='outlined'
           color='secondary'
-          defaultValue={proptypes.find(e => e._id === propType).data.title}
+          defaultValue={get(
+            proptypes.find(e => e._id === propType),
+            'data.title',
+            ''
+          )}
           disabled
         />
         <TextField
@@ -111,4 +124,4 @@ const ProjectSettings = () => {
   )
 }
 
-export default ProjectSettings
+export default ComponentInfo
