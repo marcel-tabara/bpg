@@ -32,23 +32,15 @@ const ImportDefForm = ({ navigate, id }) => {
     providersEnumNames,
   } = useCollections()
 
-  console.log('########## providersEnums', providersEnums)
-  console.log('########## providersEnumNames', providersEnumNames)
-
   const AceWidgetWrapper = props => {
     const {
       schema: { title },
-      id,
       onChange,
+      value,
     } = props
-    return (
-      <AceWidget
-        title={title}
-        id={id}
-        formState={formState}
-        onChange={onChange}
-      />
-    )
+    const onValueChane = e => onChange(e)
+
+    return <AceWidget title={title} onChange={onValueChane} value={value} />
   }
 
   const widgets = {
@@ -84,20 +76,15 @@ const ImportDefForm = ({ navigate, id }) => {
       isPublic: { type: 'boolean', name: 'isPublic' },
       isActive: { type: 'boolean', name: 'isActive' },
       isDefault: { type: 'boolean', name: 'isDefault' },
+      def: { type: 'string', title: 'Definition' },
     },
   }
 
   const uiSchema = {
-    jfSchema: {
+    def: {
       'ui:widget': 'aceWidget',
       'ui:options': {
-        rows: 15,
-      },
-    },
-    jfUiSchema: {
-      'ui:widget': 'aceWidget',
-      'ui:options': {
-        rows: 15,
+        rows: 35,
       },
     },
   }
