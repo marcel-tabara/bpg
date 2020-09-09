@@ -3,8 +3,16 @@ import axios from 'axios'
 import { put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { setCode } from '../codeGenService'
 
-const callBackend = (type, data) => {
-  return axios.post(`${process.env.API_URL}/${type}`, { data })
+const callBackend = (type, data, token) => {
+  return axios.post(
+    `${process.env.API_URL}/${type}`,
+    { data },
+    {
+      headers: {
+        Authorization: `${token}`,
+      },
+    }
+  )
 }
 
 const callBackendDelete = data => {
@@ -45,7 +53,8 @@ export function* watchUpdate({ payload }) {
 
 export function* watchRead({ payload }) {
   try {
-    const res = yield callBackend('read', payload)
+    const token = (yield select()).loginServiceReducer.user.token
+    const res = yield callBackend('read', payload, token)
     return res.data
   } catch (error) {
     yield put(setError(error.message))

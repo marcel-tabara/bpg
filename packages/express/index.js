@@ -34,7 +34,7 @@ mongoose.connect(
     useCreateIndex: true,
     useFindAndModify: false,
   },
-  function (err) {
+  err => {
     if (err) {
       throw err
     } else {
@@ -55,9 +55,6 @@ const opt = {
   trailingComma: 'all',
   arrowParens: 'avoid',
   proseWrap: 'preserve',
-}
-const optCss = {
-  parser: `css`,
 }
 
 app.post('/api/create', function (req, res) {
@@ -92,7 +89,10 @@ app.delete('/api/delete', function (req, res) {
 })
 
 app.post('/api/read', async (req, res) => {
-  const uid = req.body.data.uid
+  const user = req.headers.authorization
+    ? jwt.decode(req.headers.authorization)
+    : {}
+
   const model = getMod(req.body.data.type)
   model.find({}, (error, collection) => {
     if (error) {
@@ -104,7 +104,7 @@ app.post('/api/read', async (req, res) => {
           : collection.filter(
               el =>
                 (el.data.isPublic && el.data.isActive) ||
-                (uid && el.data.uid === uid)
+                (user && el.data.uid === user.uid)
             )
 
       res.status(200).json(filtered)
@@ -194,13 +194,19 @@ app.post('/api/authenticate', function (req, res) {
           })
         } else {
           // Issue token
-          const payload = { username }
+          const payload = { uid: user._id }
           const token = jwt.sign(payload, secret, {
             expiresIn: '1h',
           })
           res
-            .cookie('token', token, { httpOnly: true })
-            .json({ user, success: true })
+            .cookie('token', token, {
+              httpOnly: false,
+              expires: new Date(Date.now() + 9999999),
+            })
+            .json({
+              user: { isAdmin: user._doc.isAdmin, token, _id: user._doc._id },
+              success: true,
+            })
         }
       })
     }

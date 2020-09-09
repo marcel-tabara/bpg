@@ -31,37 +31,31 @@ export function* watchSignin(action) {
       yield put(
         collectionActions.getCollection({
           type: 'components',
-          uid: res.data.user._id,
         })
       )
       yield put(
         collectionActions.getCollection({
           type: 'templates',
-          uid: res.data.user._id,
         })
       )
       yield put(
         collectionActions.getCollection({
           type: 'technos',
-          uid: res.data.user._id,
         })
       )
       yield put(
         collectionActions.getCollection({
           type: 'providers',
-          uid: res.data.user._id,
         })
       )
       yield put(
         collectionActions.getCollection({
           type: 'projects',
-          uid: res.data.user._id,
         })
       )
       yield put(
         collectionActions.getCollection({
           type: 'proptypes',
-          uid: res.data.user._id,
         })
       )
     }

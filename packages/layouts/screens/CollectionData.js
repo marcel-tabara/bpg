@@ -94,7 +94,6 @@ const CollectionData = ({ id, navigate }) => {
     dispatch(
       collectionActions.getCollection({
         type: selectedCollection.title,
-        uid: user._id,
       })
     )
     navigate(`/data/${id}`)

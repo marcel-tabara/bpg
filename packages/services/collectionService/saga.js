@@ -10,8 +10,16 @@ import {
   takeLatest,
 } from 'redux-saga/effects'
 
-const callBackend = (type, data) => {
-  return axios.post(`${process.env.API_URL}/${type}`, { data })
+const callBackend = (type, data, token) => {
+  return axios.post(
+    `${process.env.API_URL}/${type}`,
+    { data },
+    {
+      headers: {
+        Authorization: `${token}`,
+      },
+    }
+  )
 }
 
 export function* watchGetCollections() {
@@ -25,11 +33,15 @@ export function* watchGetCollections() {
 }
 
 export function* watchGetCollection({ payload }) {
+  const token = (yield select()).loginServiceReducer.user.token
   try {
-    const res = yield callBackend('read', {
-      type: payload.type,
-      uid: payload.uid,
-    })
+    const res = yield callBackend(
+      'read',
+      {
+        type: payload.type,
+      },
+      token
+    )
 
     yield put(
       collectionActions.setCollection({ type: payload.type, data: res.data })
@@ -47,7 +59,6 @@ export function* setData({ importType, data }) {
 
 export function* watchImportCollectionData({ payload }) {
   const { data, importType } = payload
-  const uid = (yield select()).loginServiceReducer.user._id
 
   if (!isEmpty(data)) {
     yield all(
@@ -61,7 +72,6 @@ export function* watchImportCollectionData({ payload }) {
     yield put(
       collectionActions.getCollection({
         type: importType,
-        uid,
       })
     )
   }

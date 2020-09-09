@@ -58,9 +58,11 @@ const Editor = ({ id, navigate }) => {
   const isComponentTemplate = currentTemplate.templateIsComponent
 
   const saveProject = () => {
-    const newProject = { ...currentProject }
-    newProject.title = newProject.projectSettings.title
-    newProject.uid = user._id
+    const newProject = {
+      ...currentProject,
+      title: newProject.projectSettings.title,
+      uid: user._id,
+    }
 
     Boolean(id)
       ? dispatch(
@@ -68,9 +70,7 @@ const Editor = ({ id, navigate }) => {
         )
       : dispatch(createItem({ type: 'projects', data: { data: newProject } }))
 
-    dispatch(
-      collectionActions.getCollections({ type: 'projects', uid: user._id })
-    )
+    dispatch(collectionActions.getCollections({ type: 'projects' }))
     dispatch(setInfo('Collection saved'))
   }
 
