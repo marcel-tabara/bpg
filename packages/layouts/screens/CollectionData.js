@@ -140,8 +140,6 @@ const CollectionData = ({ id, navigate }) => {
     setAlertDialog({ open: false, id: null })
   }
 
-  const importDef = () => dispatch(addModal({ type: 'importDef', data: {} }))
-
   return (
     <>
       <AlertDialog
@@ -181,14 +179,6 @@ const CollectionData = ({ id, navigate }) => {
               component='span'
             >
               Add
-            </Button>
-            <Button
-              onClick={importDef}
-              variant='outlined'
-              color='secondary'
-              component='span'
-            >
-              Import def
             </Button>
             <input
               accept='js'
