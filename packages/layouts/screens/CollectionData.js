@@ -24,7 +24,6 @@ import isEmpty from 'lodash/isEmpty'
 import sortBy from 'lodash/sortBy'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { addModal } from '@bpgen/services'
 import { useAuth } from '../hooks/useAuth'
 import { useAlertDialog } from '../hooks/useAlertDialog'
 import { useCollections } from '../hooks/useCollections'
@@ -140,6 +139,9 @@ const CollectionData = ({ id, navigate }) => {
     setAlertDialog({ open: false, id: null })
   }
 
+  const projectCollection =
+    selectedCollection && selectedCollection.title === 'projects'
+
   return (
     <>
       <AlertDialog
@@ -170,7 +172,7 @@ const CollectionData = ({ id, navigate }) => {
             {get(selectedCollection, 'title', '').toUpperCase()}
           </Typography>
         </Grid>
-        {selectedCollection && selectedCollection.title !== 'projects' && (
+        {!projectCollection && (
           <Grid item xs={5} className='rightButton'>
             <Button
               onClick={() => addNew()}
@@ -194,14 +196,14 @@ const CollectionData = ({ id, navigate }) => {
             </label>
           </Grid>
         )}
-        {!isEmpty(filteredData()) && (
-          <Grid item xs={12}>
-            <Search searchFields={selectedCollection.searchFields} />
-          </Grid>
-        )}
+        <Grid item xs={12}>
+          <Search searchFields={selectedCollection.searchFields} />
+        </Grid>
         {isEmpty(filteredData()) && (
           <Grid item xs={12}>
-            <div className='center'>No Results</div>
+            <div className='center'>
+              <h3>No Results</h3>
+            </div>
           </Grid>
         )}
 

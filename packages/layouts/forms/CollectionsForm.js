@@ -72,7 +72,8 @@ const CollectionsForm = ({ navigate, id }) => {
       <Button
         onClick={() => navigate(`/list`)}
         component='button'
-        color='secondary'
+        color='primary'
+        variant='outlined'
       >
         Back
       </Button>
