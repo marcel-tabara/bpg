@@ -10,6 +10,13 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+  padding-left: 0.2rem;
+}
+
+.leftButton {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flexstart;
 }
 
 .menuButton {
@@ -41,6 +48,12 @@ body {
   vertical-align: middle;
   height: 80;
   width: 80;
+}
+
+.brand {
+  cursor: pointer;
+  color: white;
+  margin-right: 1rem;
 }
 
 .big_icon {
@@ -139,4 +152,9 @@ div.rst__moveHandle {
 .subtitle {
   font-style: italic;
   color: #b5a33f;
+}
+
+.fullWidth {
+  width: 100%;
+  min-width: 300px;
 }

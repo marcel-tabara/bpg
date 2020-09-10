@@ -150,7 +150,7 @@ const CollectionData = ({ id, navigate }) => {
         open={alertDialog.open}
       />
       <Grid container spacing={3}>
-        <Grid item xs={5}>
+        <Grid item xs={1}>
           <Button
             onClick={() => navigate(`/list`)}
             color='primary'
@@ -161,7 +161,7 @@ const CollectionData = ({ id, navigate }) => {
         </Grid>
         <Grid
           item
-          xs={2}
+          xs={9}
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -173,27 +173,36 @@ const CollectionData = ({ id, navigate }) => {
           </Typography>
         </Grid>
         {!projectCollection && (
-          <Grid item xs={5} className='rightButton'>
-            <Button
-              onClick={() => addNew()}
-              variant='outlined'
-              color='primary'
-              component='span'
-            >
-              Add
-            </Button>
-            <input
-              accept='js'
-              className={classes.input}
-              id='contained-button-file'
-              type='file'
-              onChange={onImport}
-            />
-            <label htmlFor='contained-button-file'>
-              <Button variant='outlined' color='secondary' component='span'>
-                Import
-              </Button>
-            </label>
+          <Grid item xs={2} className='rightButton'>
+            <div className='icon_wrapper'>
+              <div className='rightButton'>
+                <Button
+                  onClick={() => addNew()}
+                  variant='outlined'
+                  color='primary'
+                  component='span'
+                >
+                  Add
+                </Button>
+                <input
+                  accept='js'
+                  className={classes.input}
+                  id='contained-button-file'
+                  type='file'
+                  onChange={onImport}
+                />
+                <label htmlFor='contained-button-file'>
+                  <Button
+                    variant='outlined'
+                    color='secondary'
+                    component='span'
+                    style={{ marginLeft: 5 }}
+                  >
+                    Import
+                  </Button>
+                </label>
+              </div>
+            </div>
           </Grid>
         )}
         <Grid item xs={12}>

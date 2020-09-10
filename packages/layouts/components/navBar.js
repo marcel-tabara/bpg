@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
+import DeveloperModeIcon from '@material-ui/icons/DeveloperMode'
 import { navigate } from '@reach/router'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -31,6 +32,7 @@ const NavBar = () => {
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
+          <DeveloperModeIcon className='brand' onClick={() => go('/')} />
           <Typography variant='h6' className={classes.title}>
             bpGen
           </Typography>

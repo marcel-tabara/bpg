@@ -87,11 +87,14 @@ const CollectionList = ({ navigate }) => {
           open={alertDialog.open}
         />
         <div className='padd_bott'>
-          <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <div className='icon_wrapper'>
-                {admin && (
-                  <div className='right'>
+          <Grid container>
+            <Grid item xs={10} className='leftButton'>
+              <Search searchFields={['keyword']} />
+            </Grid>
+            <Grid item xs={2} className='rightButton'>
+              {admin && (
+                <div className='icon_wrapper'>
+                  <div className='rightButton'>
                     <Button
                       onClick={addNew}
                       component='button'
@@ -119,13 +122,8 @@ const CollectionList = ({ navigate }) => {
                       </Button>
                     </label>
                   </div>
-                )}
-              </div>
-            </Grid>
-            <Grid item xs={6}>
-              <div className='right'>
-                <Search searchFields={['keyword']} />
-              </div>
+                </div>
+              )}
             </Grid>
           </Grid>
         </div>
