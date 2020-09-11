@@ -138,13 +138,13 @@ const Editor = ({ id, navigate }) => {
           </div>
         </Grid>
       </Grid>
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         {isComponentTemplate && (
-          <Grid item md={8}>
+          <Grid item md={8} component='div'>
             <SortTree />
           </Grid>
         )}
-        <Grid item md={isComponentTemplate ? 4 : 12}>
+        <Grid item md={isComponentTemplate ? 4 : 12} component='div'>
           <Ace code={code} currentTab={currentTab} aceTabs={aceTabs} />
         </Grid>
       </Grid>

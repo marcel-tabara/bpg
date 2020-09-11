@@ -25,7 +25,7 @@ bpGenStore.dispatch(collectionActions.getCollection({ type: 'components' }))
 render(
   <Provider store={bpGenStore}>
     <ThemeProvider theme={theme}>
-      <Container maxWidth='xl'>
+      <Container maxWidth='xl' component='div'>
         <div className='nav'>
           <NavBar />
         </div>

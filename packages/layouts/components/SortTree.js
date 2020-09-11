@@ -4,7 +4,7 @@ import {
   setError,
   setProjectTree,
 } from '@bpgen/services'
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
+import InfoIcon from '@material-ui/icons/Info'
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline'
 import StorageIcon from '@material-ui/icons/Storage'
 import get from 'lodash/get'
@@ -12,10 +12,12 @@ import sortBy from 'lodash/sortBy'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import SortableTree, { removeNodeAtPath } from 'react-sortable-tree'
-import 'react-sortable-tree/style.css'
+
 import { useCollections } from '../hooks/useCollections'
 import { useProjects } from '../hooks/useProjects'
 import { useSearchData } from '../hooks/useSearchData'
+
+import 'react-sortable-tree/style.css'
 
 const externalNodeType = 'yourNodeType'
 const shouldCopyOnOutsideDrop = true
@@ -90,10 +92,10 @@ const SortTree = () => {
     <div className='row'>
       <div
         style={{
-          height: window.innerHeight - 100,
+          height: window.innerHeight - 170,
           float: 'left',
-          minHeight: window.innerHeight - 100,
-          minWidth: window.innerWidth / 4,
+          minHeight: window.innerHeight - 170,
+          minWidth: window.innerWidth / 5,
         }}
       >
         <SortableTree
@@ -103,7 +105,7 @@ const SortTree = () => {
           shouldCopyOnOutsideDrop={shouldCopyOnOutsideDrop}
           generateNodeProps={({ node, path }) => ({
             buttons: [
-              <HelpOutlineIcon
+              <InfoIcon
                 color='primary'
                 className='generic_link'
                 onClick={() => openModal('component_info', node, path)}

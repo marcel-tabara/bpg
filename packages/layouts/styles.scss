@@ -4,6 +4,8 @@ body {
   width: 100%;
   font-size: 0.8rem;
   font-family: 'Monoid' !important;
+  overflow-x:hidden;
+  //overflow-y:hidden;
 }
 
 .rightButton {
@@ -154,7 +156,28 @@ div.rst__moveHandle {
   color: #b5a33f;
 }
 
-.fullWidth {
-  width: 100%;
-  min-width: 300px;
+.alert {
+  margin-bottom: 1rem;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3f51b5 white;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: white;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #3f51b5;
+  border-radius: 10px;
+
+}
+
+.MuiInputBase-root.Mui-disabled {
+  color: black !important
 }
