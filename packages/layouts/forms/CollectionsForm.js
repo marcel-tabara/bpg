@@ -1,6 +1,6 @@
 import { collectionActions, createItem, updateItem } from '@bpgen/services'
 
-import React, { useState } from 'react'
+import React from 'react'
 import Form from '@rjsf/material-ui'
 import { useDispatch } from 'react-redux'
 import { useAuth } from '../hooks/useAuth'
@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button'
 const CollectionsForm = ({ navigate, id }) => {
   useAuth(navigate)
   const { selectedCollection } = useCollections(id)
-  const [formState, setFormState] = useState(selectedCollection)
   const dispatch = useDispatch()
 
   const AceWidgetWrapper = props => {
@@ -80,7 +79,7 @@ const CollectionsForm = ({ navigate, id }) => {
       <Form
         schema={schema}
         onSubmit={onSubmit}
-        formData={formState}
+        formData={selectedCollection}
         uiSchema={uiSchema}
         widgets={widgets}
       >
