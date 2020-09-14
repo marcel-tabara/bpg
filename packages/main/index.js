@@ -6,6 +6,7 @@ import store from '@bpgen/redux-store'
 import { collectionActions } from '@bpgen/services'
 import Container from '@material-ui/core/Container'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
@@ -25,7 +26,7 @@ bpGenStore.dispatch(collectionActions.getCollection({ type: 'components' }))
 render(
   <Provider store={bpGenStore}>
     <ThemeProvider theme={theme}>
-      <Container maxWidth='xl' component='div'>
+      <Container maxWidth='xl'>
         <div className='nav'>
           <NavBar />
         </div>

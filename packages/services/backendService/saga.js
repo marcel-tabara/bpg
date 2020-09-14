@@ -1,4 +1,4 @@
-import { setError } from '@bpgen/services'
+import { setError, setInfo } from '@bpgen/services'
 import axios from 'axios'
 import { put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { setCode } from '../codeGenService'
@@ -16,7 +16,7 @@ const callBackend = (type, data, token) => {
 }
 
 const callBackendDelete = data => {
-  return axios.delete(`${process.env.API_URL}/delete`, { data })
+  return axios.post(`${process.env.API_URL}/delete`, { data })
 }
 
 const prettify = (code, parser) => {
@@ -36,6 +36,7 @@ export function* watchCreate({ payload }) {
   if (!payload) return
   try {
     const res = yield callBackend('create', payload)
+    yield put(setInfo('Success'))
   } catch (error) {
     yield put(setError(error.message))
   }
@@ -45,6 +46,7 @@ export function* watchUpdate({ payload }) {
   if (!{ payload }) return
   try {
     const res = yield callBackend('update', payload)
+    yield put(setInfo('Success'))
     return res
   } catch (error) {
     yield put(setError(error.message))
@@ -64,7 +66,8 @@ export function* watchRead({ payload }) {
 export function* watchDelete({ payload }) {
   if (!payload) return
   try {
-    const res = yield callBackendDelete(payload)
+    const res = yield callBackendDelete(payload.data)
+    yield put(setInfo('Success'))
     return res
   } catch (error) {
     yield put(setError(error.message))

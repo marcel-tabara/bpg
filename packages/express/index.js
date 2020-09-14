@@ -76,7 +76,7 @@ app.post('/api/update', function (req, res) {
   })
 })
 
-app.delete('/api/delete', function (req, res) {
+app.post('/api/delete', function (req, res) {
   const model = getMod(req.body.data.type)
   var myquery = { _id: req.body.data.data }
 

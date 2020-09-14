@@ -74,6 +74,7 @@ export function* watchImportCollectionData({ payload }) {
         type: importType,
       })
     )
+    yield put(setInfo('Success'))
   }
 }
 
