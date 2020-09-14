@@ -108,6 +108,8 @@ const CollectionDataForm = props => {
     navigate(`/data/${id}`)
   }
 
+  const onChange = ({ formData }) => setFormState(formData)
+
   return (
     <div className='wrapper'>
       <Button onClick={goToDetails} color='primary' variant='outlined'>
@@ -119,6 +121,7 @@ const CollectionDataForm = props => {
         onSubmit={onSubmit}
         formData={formState}
         widgets={widgets}
+        onChange={onChange}
       >
         <div className='padd_top_bott'>
           <Button variant='contained' color='primary' type='submit'>
