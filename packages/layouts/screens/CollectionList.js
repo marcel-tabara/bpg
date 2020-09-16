@@ -22,7 +22,7 @@ import { useDispatch } from 'react-redux'
 import { useAuth } from '../hooks/useAuth'
 import { useCollections } from '../hooks/useCollections'
 import { useSearchData } from '../hooks/useSearchData'
-
+import { useTableStyle } from '../hooks/useTableStyle'
 import AlertDialog from '../components/AlertDialog'
 
 const useStyles = makeStyles({
@@ -39,6 +39,7 @@ const CollectionList = ({ navigate }) => {
   const { searchData } = useSearchData()
   const classes = useStyles()
   const { alertDialog, setAlertDialog } = useAlertDialog()
+  const { StyledTableCell, StyledTableRow } = useTableStyle()
   let fileReader
 
   const filteredCollections = () => {
@@ -135,14 +136,14 @@ const CollectionList = ({ navigate }) => {
             <Table className={classes.table} aria-label='simple table'>
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell align='right'>Actions</TableCell>
+                  <StyledTableCell>Name</StyledTableCell>
+                  <StyledTableCell>Description</StyledTableCell>
+                  <StyledTableCell align='right'>Actions</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {filteredCollections().map(row => (
-                  <TableRow key={row._id}>
+                  <StyledTableRow key={row._id}>
                     <TableCell component='th' scope='row'>
                       {admin ? (
                         <Link
@@ -172,7 +173,7 @@ const CollectionList = ({ navigate }) => {
                         className='generic_link'
                       />
                     </TableCell>
-                  </TableRow>
+                  </StyledTableRow>
                 ))}
               </TableBody>
             </Table>

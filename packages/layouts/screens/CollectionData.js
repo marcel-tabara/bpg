@@ -8,6 +8,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -18,7 +19,6 @@ import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
 import { DeleteRounded } from '@material-ui/icons'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
-import StorageIcon from '@material-ui/icons/Storage'
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
 import sortBy from 'lodash/sortBy'
@@ -28,6 +28,7 @@ import { useAuth } from '../hooks/useAuth'
 import { useAlertDialog } from '../hooks/useAlertDialog'
 import { useCollections } from '../hooks/useCollections'
 import { useSearchData } from '../hooks/useSearchData'
+import { useTableStyle } from '../hooks/useTableStyle'
 import '../styles.scss'
 
 import AlertDialog from '../components/AlertDialog'
@@ -44,6 +45,7 @@ const CollectionData = ({ id, navigate }) => {
   const { admin, user } = useAuth(navigate)
   const { alertDialog, setAlertDialog } = useAlertDialog()
   const { data = [], selectedCollection = {}, providers } = useCollections(id)
+  const { StyledTableCell, StyledTableRow } = useTableStyle()
   let fileReader
 
   const { searchData } = useSearchData()
@@ -142,6 +144,8 @@ const CollectionData = ({ id, navigate }) => {
   const projectCollection =
     selectedCollection && selectedCollection.title === 'projects'
 
+  const bool2str = val => (val ? 'Yes' : 'No')
+
   return (
     <>
       <AlertDialog
@@ -222,18 +226,33 @@ const CollectionData = ({ id, navigate }) => {
               <Table className='table' aria-label='simple table'>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell align='right'>Actions</TableCell>
+                    <StyledTableCell>Name</StyledTableCell>
+                    <StyledTableCell>Active</StyledTableCell>
+                    <StyledTableCell>Public</StyledTableCell>
+                    <StyledTableCell align='right'>Actions</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {filteredData().map(({ _id, data }) => (
-                    <TableRow key={_id}>
+                    <StyledTableRow key={_id}>
                       <TableCell>
-                        <div>{data.title}</div>
-                        <div className='subtitle'>
-                          {getProvider(data.provider)}
-                        </div>
+                        <Link
+                          onClick={() => onClick({ _id, data })}
+                          className='generic_link'
+                        >
+                          {data.title}
+                        </Link>
+                        {data.provider && (
+                          <div className='subtitle'>
+                            {getProvider(data.provider)}
+                          </div>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <div>{bool2str(data.isActive)}</div>
+                      </TableCell>
+                      <TableCell>
+                        <div>{bool2str(data.isPublic)}</div>
                       </TableCell>
                       <TableCell align='right'>
                         {showActions(data.uid) && (
@@ -245,11 +264,6 @@ const CollectionData = ({ id, navigate }) => {
                               color='primary'
                               className='generic_link'
                             />
-                            <StorageIcon
-                              color='primary'
-                              onClick={() => onClick({ _id, data })}
-                              className='generic_link'
-                            />
                             <FileCopyIcon
                               onClick={() => addNew(data)}
                               color='primary'
@@ -258,7 +272,7 @@ const CollectionData = ({ id, navigate }) => {
                           </>
                         )}
                       </TableCell>
-                    </TableRow>
+                    </StyledTableRow>
                   ))}
                 </TableBody>
               </Table>

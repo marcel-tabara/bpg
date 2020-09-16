@@ -51,6 +51,7 @@ const ProjectSettings = () => {
       : {
           type: 'string',
           anyOf: templates
+            .filter(e => e.data.isActive)
             .map(e => {
               return {
                 type: 'string',
