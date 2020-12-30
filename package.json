@@ -8,12 +8,15 @@
     "packages/*"
   ],
   "scripts": {
+    "clean": "lerna clean --yes && lerna exec -- rimraf dist --parallel",
     "client": "yarn workspace @bpgen/main start",
     "server": "yarn workspace @bpgen/express start",
     "build": "yarn workspace @bpgen/main build",
     "start": "concurrently --kill-others \"yarn client\" \"yarn server\""
   },
-  "dependencies": {
-    "concurrently": "^5.3.0"
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "lerna": "^3.22.1",
+    "rimraf": "^3.0.2"
   }
 }

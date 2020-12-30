@@ -121,7 +121,7 @@ const CollectionDataForm = props => {
         onSubmit={onSubmit}
         formData={formState}
         widgets={widgets}
-        onChange={onChange}
+        //onChange={onChange}
       >
         <div className='padd_top_bott'>
           <Button variant='contained' color='primary' type='submit'>
