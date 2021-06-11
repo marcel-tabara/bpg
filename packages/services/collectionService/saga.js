@@ -62,7 +62,7 @@ export function* watchImportCollectionData({ payload }) {
 
   if (!isEmpty(data)) {
     yield all(
-      data.map(data =>
+      data.map((data) =>
         call(setData, {
           data,
           importType,

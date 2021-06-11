@@ -8,15 +8,17 @@
     "packages/*"
   ],
   "scripts": {
-    "clean": "lerna clean --yes && lerna exec -- rimraf dist --parallel",
+    "clean": "lerna clean --yes && lerna exec -- rimraf dist --parallel  && lerna exec -- rimraf node_modules .cache --parallel",
     "client": "yarn workspace @bpgen/main start",
-    "server": "yarn workspace @bpgen/express start",
-    "build": "yarn workspace @bpgen/main build",
-    "start": "concurrently --kill-others \"yarn client\" \"yarn server\""
+    "server:dev": "yarn workspace @bpgen/express start:dev",
+    "server:prod": "yarn workspace @bpgen/express start:prod",
+    "build": "lerna exec -- rimraf dist --parallel && yarn workspace @bpgen/main build",
+    "start": "concurrently --kill-others \"yarn client\" \"yarn server:dev\""
   },
   "devDependencies": {
-    "concurrently": "^5.3.0",
-    "lerna": "^3.22.1",
+    "concurrently": "^6.2.0",
+    "lerna": "^4.0.0",
     "rimraf": "^3.0.2"
-  }
+  },
+  "dependencies": {}
 }

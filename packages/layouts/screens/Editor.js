@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
+//import { GenericForm } from '@mtutils/genericform';
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
 import React from 'react'
@@ -24,8 +25,9 @@ import { useCodeGen } from '../hooks/useCodeGen'
 import { useProjects } from '../hooks/useProjects'
 import { useProjectSettings } from '../hooks/useProjectSettings'
 import { useAuth } from './../hooks/useAuth'
+//import { SortableTree } from '@mtutils/sortabletree';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: { flexGrow: 1 },
 }))
 
@@ -42,12 +44,12 @@ const Editor = ({ id, navigate }) => {
 
   if (isEmpty(projectSettings)) {
     return (
-      <div className='center'>
+      <div className="center">
         <Button
           onClick={onClick}
-          component='button'
-          color='primary'
-          variant='contained'
+          component="button"
+          color="primary"
+          variant="contained"
         >
           Settings
         </Button>
@@ -90,32 +92,34 @@ const Editor = ({ id, navigate }) => {
   return (
     <div className={classes.root}>
       <CustomNavBar />
+      {/* <SortableTree /> */}
+      {/* <GenericForm /> */}
       <Grid container spacing={2}>
         {isComponentTemplate && (
           <Grid item md={6}>
-            <div className='left'>
+            <div className="left">
               <Search searchFields={['keyword', 'technos', 'providers']} />
             </div>
           </Grid>
         )}
         <Grid item md={isComponentTemplate ? 6 : 12}>
-          <div className='right'>
+          <div className="right">
             <ButtonGroup
-              color='secondary'
-              aria-label='outlined secondary button group'
+              color="secondary"
+              aria-label="outlined secondary button group"
             >
               <Button
                 onClick={initProject}
-                component='button'
-                variant='outlined'
+                component="button"
+                variant="outlined"
               >
                 init
               </Button>
               {authenticated && (
                 <Button
                   onClick={saveProject}
-                  component='button'
-                  variant='outlined'
+                  component="button"
+                  variant="outlined"
                 >
                   Save
                 </Button>
@@ -123,13 +127,13 @@ const Editor = ({ id, navigate }) => {
               {get(currentProject, 'projectSettings.destination', false) && (
                 <Button
                   onClick={exportProjectFiles}
-                  component='button'
-                  variant='outlined'
+                  component="button"
+                  variant="outlined"
                 >
                   Export
                 </Button>
               )}
-              <Button onClick={onClick} component='button' variant='outlined'>
+              <Button onClick={onClick} component="button" variant="outlined">
                 Settings
               </Button>
             </ButtonGroup>
@@ -138,11 +142,11 @@ const Editor = ({ id, navigate }) => {
       </Grid>
       <Grid container spacing={1}>
         {isComponentTemplate && (
-          <Grid item md={8} component='div'>
+          <Grid item md={8} component="div">
             <SortTree />
           </Grid>
         )}
-        <Grid item md={isComponentTemplate ? 4 : 12} component='div'>
+        <Grid item md={isComponentTemplate ? 4 : 12} component="div">
           <Ace code={code} currentTab={currentTab} aceTabs={aceTabs} />
         </Grid>
       </Grid>

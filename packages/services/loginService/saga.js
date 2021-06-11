@@ -2,9 +2,8 @@ import { authenticate, collectionActions, setError } from '@bpgen/services'
 import axios from 'axios'
 import { put, takeLatest } from 'redux-saga/effects'
 
-const callBackend = (type, data) => {
-  return axios.post(`${process.env.API_URL}/${type}`, { data })
-}
+const callBackend = (type, data) =>
+  axios.post(`${process.env.API_URL}/${type}`, { data })
 
 export function* watchRegister(action) {
   try {
