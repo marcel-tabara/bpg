@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "clean": "lerna clean --yes && lerna exec -- rimraf dist --parallel  && lerna exec -- rimraf node_modules .cache --parallel",
+    "clean": "rimraf node_modules && lerna clean --yes && lerna exec -- rimraf dist .cache --parallel",
     "client": "yarn workspace @bpgen/main start",
     "server:dev": "yarn workspace @bpgen/express start:dev",
     "server:prod": "yarn workspace @bpgen/express start:prod",
