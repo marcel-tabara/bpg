@@ -31,13 +31,12 @@ const Search = ({ searchFields = '' }) => {
   const [labelWidth, setLabelWidth] = useState(0)
 
   const { searchData } = useSearchData()
-  const { technos } = useCollections()
-  const { handleChange, filteredProviders } = useSearch()
+  const { handleChange, filteredProviders, filteredTechnos } = useSearch()
 
   useEffect(() => setLabelWidth(get(inputLabel, 'current.offsetWidth', 0)), [])
 
-  const getTechnos = () =>
-    technos.map((e) => (
+  const renderFilteredTechnos = () =>
+    filteredTechnos.map((e) => (
       <MenuItem value={e._id} key={e.data.title}>
         {e.data.title}
       </MenuItem>
@@ -63,7 +62,7 @@ const Search = ({ searchFields = '' }) => {
           />
         </FormControl>
       )}
-      {searchFields.includes('technos') && (
+      {searchFields.includes('technos') && filteredTechnos.length > 0 && (
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel ref={inputLabel} id="techno_label">
             Technos
@@ -75,12 +74,12 @@ const Search = ({ searchFields = '' }) => {
             onChange={handleChange}
             labelWidth={labelWidth}
           >
-            {technos.length > 1 && (
+            {filteredTechnos.length > 1 && (
               <MenuItem value="all">
                 <em>All</em>
               </MenuItem>
             )}
-            {getTechnos()}
+            {renderFilteredTechnos()}
           </Select>
         </FormControl>
       )}

@@ -7,10 +7,19 @@ import { useCollections } from '../hooks/useCollections'
 export const useSearch = () => {
   const dispatch = useDispatch()
   const { searchData } = useSearchData()
-  const { providers } = useCollections()
+  const { providers, components, technos } = useCollections()
+
+  const getFilteredTechnos = () =>
+    technos.filter(
+      (e) => e.data.isActive && components.some((c) => c.data.techno === e._id)
+    )
+  const filteredTechnos = getFilteredTechnos()
 
   const getFilteredProviders = () =>
-    providers.filter((e) => e.data.techno === searchData.techno ?? e.techno)
+    providers.filter(
+      (e) =>
+        (e.data.isActive && e.data.techno === searchData.techno) || e.techno
+    )
   const filteredProviders = getFilteredProviders()
 
   useEffect(() => {
@@ -43,5 +52,6 @@ export const useSearch = () => {
   return {
     handleChange,
     filteredProviders,
+    filteredTechnos,
   }
 }
