@@ -1,4 +1,3 @@
-import { setSearch } from '@bpgen/services'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -7,9 +6,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import get from 'lodash/get'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { useCollections } from '../hooks/useCollections'
 import { useSearchData } from './../hooks/useSearchData'
+import { useSearch } from './../hooks/useSearch'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,46 +27,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Search = ({ searchFields = '' }) => {
   const classes = useStyles()
-  const dispatch = useDispatch()
-
-  const { searchData } = useSearchData()
-  const { providers, technos } = useCollections()
-
   const inputLabel = React.useRef(null)
   const [labelWidth, setLabelWidth] = useState(0)
 
+  const { searchData } = useSearchData()
+  const { technos } = useCollections()
+  const { handleChange, filteredProviders } = useSearch()
+
   useEffect(() => setLabelWidth(get(inputLabel, 'current.offsetWidth', 0)), [])
-
-  const getFilteredProviders = () =>
-    providers.filter((e) => e.data.techno === searchData.techno ?? e.techno)
-  const filteredProviders = getFilteredProviders()
-
-  useEffect(() => {
-    dispatch(
-      setSearch({
-        ...searchData,
-        provider:
-          filteredProviders.length === 1
-            ? filteredProviders[0]._id
-            : searchData.provider
-            ? searchData.provider
-            : 'all',
-      })
-    )
-  }, [filteredProviders.length, filteredProviders[0]?._id])
-
-  const handleChange = (event) => {
-    const { keyword, techno = 'all', provider = '' } = searchData
-
-    dispatch(
-      setSearch({
-        keyword,
-        techno: techno,
-        provider: event.target.name === 'techno' ? '' : provider,
-        [event.target.name]: event.target.value,
-      })
-    )
-  }
 
   const getTechnos = () =>
     technos.map((e) => (
