@@ -36,14 +36,38 @@ const Search = ({ searchFields = '' }) => {
   const inputLabel = React.useRef(null)
   const [labelWidth, setLabelWidth] = useState(0)
 
-  useEffect(() => {
-    setLabelWidth(get(inputLabel, 'current.offsetWidth', 0))
-  }, [])
+  useEffect(() => setLabelWidth(get(inputLabel, 'current.offsetWidth', 0)), [])
 
-  const handleChange = (event) =>
+  const getFilteredProviders = () =>
+    providers.filter((e) => e.data.techno === searchData.techno ?? e.techno)
+  const filteredProviders = getFilteredProviders()
+
+  useEffect(() => {
     dispatch(
-      setSearch({ ...searchData, [event.target.name]: event.target.value })
+      setSearch({
+        ...searchData,
+        provider:
+          filteredProviders.length === 1
+            ? filteredProviders[0]._id
+            : searchData.provider
+            ? searchData.provider
+            : 'all',
+      })
     )
+  }, [filteredProviders.length, filteredProviders[0]?._id])
+
+  const handleChange = (event) => {
+    const { keyword, techno = 'all', provider = '' } = searchData
+
+    dispatch(
+      setSearch({
+        keyword,
+        techno: techno,
+        provider: event.target.name === 'techno' ? '' : provider,
+        [event.target.name]: event.target.value,
+      })
+    )
+  }
 
   const getTechnos = () =>
     technos.map((e) => (
@@ -52,8 +76,8 @@ const Search = ({ searchFields = '' }) => {
       </MenuItem>
     ))
 
-  const getProviders = () =>
-    providers.map((e) => (
+  const renderFilteredProviders = () =>
+    filteredProviders.map((e) => (
       <MenuItem value={e._id} key={e.data.title}>
         {e.data.title}
       </MenuItem>
@@ -80,18 +104,20 @@ const Search = ({ searchFields = '' }) => {
           <Select
             labelId="demo-simple-select-outlined-label"
             name="techno"
-            value={searchData.techno || 'all'}
+            value={searchData.techno || ''}
             onChange={handleChange}
             labelWidth={labelWidth}
           >
-            <MenuItem value="all">
-              <em>All</em>
-            </MenuItem>
+            {technos.length > 1 && (
+              <MenuItem value="all">
+                <em>All</em>
+              </MenuItem>
+            )}
             {getTechnos()}
           </Select>
         </FormControl>
       )}
-      {searchFields.includes('providers') && (
+      {searchFields.includes('providers') && filteredProviders.length > 0 && (
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel ref={inputLabel} id="provider_label">
             Providers
@@ -99,14 +125,16 @@ const Search = ({ searchFields = '' }) => {
           <Select
             labelId="demo-simple-select-outlined-label"
             name="provider"
-            value={searchData.provider || 'all'}
+            value={searchData.provider || ''}
             onChange={handleChange}
             labelWidth={labelWidth}
           >
-            <MenuItem value="all">
-              <em>All</em>
-            </MenuItem>
-            {getProviders()}
+            {filteredProviders.length > 1 && (
+              <MenuItem value="all">
+                <em>All</em>
+              </MenuItem>
+            )}
+            {renderFilteredProviders()}
           </Select>
         </FormControl>
       )}
