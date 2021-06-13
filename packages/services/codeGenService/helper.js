@@ -2,14 +2,14 @@ import * as _ from 'lodash'
 import get from 'lodash/get'
 import * as helper from './utils/helper'
 
-export const executeCodeGeneration = currentProject => {
+export const executeCodeGeneration = (currentProject) => {
   let codeFile = []
 
-  get(currentProject, 'currentTemplate.templateFiles', []).map(file => {
+  get(currentProject, 'currentTemplate.files', []).map((file) => {
     let code = ''
 
     try {
-      get(file, 'fileBlocks', []).map(block => {
+      get(file, 'fileBlocks', []).map((block) => {
         if (block.blockImplementation) {
           code += new Function(
             '_',

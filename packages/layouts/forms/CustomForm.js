@@ -62,8 +62,8 @@ const CustomForm = () => {
 
   const getTemplateForm = () => {
     let templateForm = {}
-    get(currentProject, 'currentTemplate.templateFiles', []).map(e => {
-      get(e, 'fileForms', []).filter(form => {
+    get(currentProject, 'currentTemplate.files', []).map((e) => {
+      get(e, 'fileForms', []).filter((form) => {
         if (form.formName === currentModal.type) {
           templateForm = form
         }
@@ -125,15 +125,15 @@ const CustomForm = () => {
   }
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth="md">
       <Form
         schema={schema}
         onSubmit={onSubmit}
         formData={formData}
         uiSchema={uiSchema}
       >
-        <div className='padd_top_bott'>
-          <Button variant='contained' color='primary' type='submit'>
+        <div className="padd_top_bott">
+          <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
         </div>

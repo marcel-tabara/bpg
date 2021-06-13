@@ -14,6 +14,6 @@ const searchService = createSlice({
 })
 
 const { actions, reducer } = searchService
-export const { setSearch } = actions
+export const { resetSearch, setSearch } = actions
 export { reducer as searchServiceReducer }
 export { selectors as searchSelectors }

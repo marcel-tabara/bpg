@@ -6,8 +6,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import get from 'lodash/get'
 import React, { useEffect, useState } from 'react'
-import { useCollections } from '../hooks/useCollections'
-import { useSearchData } from './../hooks/useSearchData'
 import { useSearch } from './../hooks/useSearch'
 
 const useStyles = makeStyles((theme) => ({
@@ -25,13 +23,15 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: { marginTop: theme.spacing(2) },
 }))
 
-const Search = ({ searchFields = '' }) => {
+const Search = ({ searchFields = '', searchData, isData = false }) => {
   const classes = useStyles()
   const inputLabel = React.useRef(null)
   const [labelWidth, setLabelWidth] = useState(0)
 
-  const { searchData } = useSearchData()
-  const { handleChange, filteredProviders, filteredTechnos } = useSearch()
+  const { handleChange, filteredProviders, filteredTechnos } = useSearch({
+    searchData,
+    isData,
+  })
 
   useEffect(() => setLabelWidth(get(inputLabel, 'current.offsetWidth', 0)), [])
 

@@ -19,22 +19,19 @@ const sortPredicate = (a, b) => (a.title > b.title ? 1 : -1)
 
 const ProjectSettings = () => {
   const dispatch = useDispatch()
-  const {
-    projectSettings = { techno: '', title: '', template: '' },
-  } = useProjects()
+  const { projectSettings = { techno: '', title: '', template: '' } } =
+    useProjects()
   const { templates = [], technos = [] } = useCollections()
   const [formState, setFormState] = useState(projectSettings)
 
   const getFilteredTemplates = () => {
     const filteredTemplates = templates
-      .filter(e => e.data.isActive)
-      .filter(e =>
-        e.data.templateTechno.toLowerCase().includes(formState.techno)
-      )
+      .filter((e) => e.data.isActive)
+      .filter((e) => e.data.techno.toLowerCase().includes(formState.techno))
     return !isEmpty(filteredTemplates)
       ? {
           type: 'string',
-          anyOf: filteredTemplates.map(e => {
+          anyOf: filteredTemplates.map((e) => {
             return {
               type: 'string',
               title: e.data.title,
@@ -51,8 +48,8 @@ const ProjectSettings = () => {
       : {
           type: 'string',
           anyOf: templates
-            .filter(e => e.data.isActive)
-            .map(e => {
+            .filter((e) => e.data.isActive)
+            .map((e) => {
               return {
                 type: 'string',
                 title: e.data.title,
@@ -69,15 +66,15 @@ const ProjectSettings = () => {
 
   const getTechnos = () => {
     const existingTemplateTechnos = () =>
-      templates.filter(e => e.data.isActive).map(e => e.data.templateTechno)
+      templates.filter((e) => e.data.isActive).map((e) => e.data.techno)
     const allTechnoTemplates = existingTemplateTechnos()
 
     if (isEmpty(allTechnoTemplates)) return {}
     return {
       type: 'string',
       anyOf: technos
-        .filter(e => allTechnoTemplates.includes(e._id))
-        .map(e => {
+        .filter((e) => allTechnoTemplates.includes(e._id))
+        .map((e) => {
           return {
             type: 'string',
             title: e.data.title,
@@ -113,13 +110,13 @@ const ProjectSettings = () => {
 
   const onSubmit = ({ formData }) => {
     const currentTemplate = get(
-      templates.find(e => e._id === formData.template),
+      templates.find((e) => e._id === formData.template),
       'data',
       []
     )
-    const aceTabs = get(currentTemplate, 'templateFiles', [])
-      .filter(file => file.fileIsActive)
-      .map(file => file.fileName)
+    const aceTabs = get(currentTemplate, 'files', [])
+      .filter((file) => file.fileIsActive)
+      .map((file) => file.fileName)
 
     dispatch(setProjectSettings(formData))
     dispatch(setCurrentTemplate(currentTemplate))
@@ -130,7 +127,7 @@ const ProjectSettings = () => {
   }
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth="md">
       <div>
         <Form
           schema={schema}
@@ -139,8 +136,8 @@ const ProjectSettings = () => {
           formData={formState}
           uiSchema={uiSchema}
         >
-          <div className='padd_top_bott'>
-            <Button variant='contained' color='primary' type='submit'>
+          <div className="padd_top_bott">
+            <Button variant="contained" color="primary" type="submit">
               Submit
             </Button>
           </div>

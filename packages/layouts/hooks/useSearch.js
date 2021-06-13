@@ -1,53 +1,84 @@
 import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { setSearch } from '@bpgen/services'
-import { useSearchData } from './../hooks/useSearchData'
 import { useCollections } from '../hooks/useCollections'
+import { useAuth } from '../hooks/useAuth'
 
-export const useSearch = () => {
+export const useSearch = ({ searchData, isData }) => {
   const dispatch = useDispatch()
-  const { searchData } = useSearchData()
+  const { keyword, techno = '', provider = '' } = searchData
   const { providers, components, technos } = useCollections()
+  const { user } = useAuth({}, false)
 
-  const getFilteredTechnos = () =>
-    technos.filter(
-      (e) => e.data.isActive && components.some((c) => c.data.techno === e._id)
+  const hasComponents = useCallback(
+    (type, typeId, uid) => {
+      return components.some((c) =>
+        isData
+          ? c.data[type] === typeId && (c.data.uid === uid || user.isAdmin)
+          : c.data[type] === typeId
+      )
+    },
+    [isData]
+  )
+
+  const getFilteredTechnos = useCallback(() => {
+    return technos.filter(
+      (e) => user.isAdmin || hasComponents('techno', e._id, user._id)
     )
+  }, [user.isAdmin, user._id])
+
+  const getFilteredProviders = () => {
+    return providers.filter((e) =>
+      searchData.techno
+        ? e.data.techno === searchData.techno &&
+          hasComponents('provider', e._id, user._id)
+        : e
+    )
+  }
+
   const filteredTechnos = getFilteredTechnos()
-
-  const getFilteredProviders = () =>
-    providers.filter(
-      (e) =>
-        (e.data.isActive && e.data.techno === searchData.techno) || e.techno
-    )
   const filteredProviders = getFilteredProviders()
 
   useEffect(() => {
     dispatch(
       setSearch({
         ...searchData,
+        techno:
+          filteredTechnos.length === 1
+            ? filteredTechnos[0]._id
+            : techno
+            ? techno
+            : 'all',
         provider:
           filteredProviders.length === 1
             ? filteredProviders[0]._id
-            : searchData.provider
-            ? searchData.provider
+            : provider
+            ? provider
             : 'all',
       })
     )
-  }, [filteredProviders.length, filteredProviders[0]?._id])
+  }, [
+    filteredTechnos.length,
+    filteredTechnos[0]?._id,
+    techno,
+    filteredProviders.length,
+    filteredProviders[0]?._id,
+    provider,
+  ])
 
-  const handleChange = (event) => {
-    const { keyword, techno = 'all', provider = '' } = searchData
-
-    dispatch(
-      setSearch({
-        keyword,
-        techno: techno,
-        provider: event.target.name === 'techno' ? '' : provider,
-        [event.target.name]: event.target.value,
-      })
-    )
-  }
+  const handleChange = useCallback(
+    (event) => {
+      dispatch(
+        setSearch({
+          keyword,
+          techno,
+          provider: event.target.name === 'techno' ? '' : provider,
+          [event.target.name]: event.target.value,
+        })
+      )
+    },
+    [keyword, techno, provider]
+  )
 
   return {
     handleChange,

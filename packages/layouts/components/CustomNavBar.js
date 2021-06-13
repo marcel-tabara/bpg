@@ -14,10 +14,10 @@ const CustomNavBar = () => {
   const { currentTemplate } = useProjects()
   if (isEmpty(currentTemplate)) return null
 
-  const openModalForm = e =>
+  const openModalForm = (e) =>
     dispatch(addModal({ type: e, data: currentTemplate }))
 
-  const getButtons = form => {
+  const getButtons = (form) => {
     return (
       form.formIsActive && (
         <Button
@@ -25,8 +25,8 @@ const CustomNavBar = () => {
           key={form.formName}
           name={form.formName}
           id={form.formName}
-          component='button'
-          variant='outlined'
+          component="button"
+          variant="outlined"
         >
           {form.formName}
         </Button>
@@ -37,9 +37,9 @@ const CustomNavBar = () => {
   const getButtonGroup = () => {
     return (
       <ButtonGroup
-        color='primary'
-        aria-label='outlined primary button group'
-        key='custom-nav-bar-button-group'
+        color="primary"
+        aria-label="outlined primary button group"
+        key="custom-nav-bar-button-group"
       >
         {getTemplateForms()}
       </ButtonGroup>
@@ -47,8 +47,8 @@ const CustomNavBar = () => {
   }
 
   const getTemplateForms = () =>
-    get(currentTemplate, 'templateFiles', []).map(file => {
-      return get(file, 'fileForms', []).map(form => getButtons(form))
+    get(currentTemplate, 'files', []).map((file) => {
+      return get(file, 'fileForms', []).map((form) => getButtons(form))
     })
 
   return getButtonGroup()

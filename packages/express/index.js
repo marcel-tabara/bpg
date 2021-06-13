@@ -68,6 +68,11 @@ const opt = {
   proseWrap: 'preserve',
 }
 
+const getUser = (_id) => {
+  var user = User.find({ _id }).exec()
+  return user
+}
+
 app.post('/api/create', function (req, res) {
   const model = getModel(req.body.data.type, req.body.data.data)
   model.save(function (err) {
@@ -81,45 +86,75 @@ app.post('/api/create', function (req, res) {
 
 app.post('/api/update', function (req, res) {
   const model = getMod(req.body.data.type, req.body.data.data)
-  model.findByIdAndUpdate(req.body.data.data._id, req.body.data.data, (err) => {
-    if (err) return res.json({ success: false, error: err })
-    return res.json({ success: true })
+  const userId = req.headers.authorization
+    ? jwt.decode(req.headers.authorization)
+    : {}
+
+  getUser(userId?.uid).then((jedi) => {
+    const user = jedi[0]
+    if (req.body.data.data.uid === user._id || user.isAdmin) {
+      model.findByIdAndUpdate(
+        req.body.data.data._id,
+        req.body.data.data,
+        (err) => {
+          if (err) return res.json({ success: false, error: err })
+          return res.json({ success: true })
+        }
+      )
+    } else {
+      return res.json({ success: false, error: 'Not Authorized' })
+    }
   })
 })
 
 app.post('/api/delete', function (req, res) {
-  const model = getMod(req.body.data.type)
-  var myquery = { _id: req.body.data.data }
+  const userId = req.headers.authorization
+    ? jwt.decode(req.headers.authorization)
+    : {}
 
-  model.deleteOne(myquery, (error, obj) => {
-    if (error) {
-      res.status(500).send(error)
+  getUser(userId?.uid).then((jedi) => {
+    const user = jedi[0]
+    if (req.body.data.data.uid === user._id || user.isAdmin) {
+      getMod(req.body.data.type).deleteOne(
+        { _id: req.body.data.data },
+        (error, obj) => {
+          if (error) {
+            res.status(500).send(error)
+          }
+          res.json({ success: true })
+        }
+      )
+    } else {
+      return res.json({ success: false, error: 'Not Authorized' })
     }
-    res.json({ success: true })
   })
 })
 
 app.post('/api/read', async (req, res) => {
-  const user = req.headers.authorization
+  const userId = req.headers.authorization
     ? jwt.decode(req.headers.authorization)
     : {}
 
-  const model = getMod(req.body.data.type)
-  model.find({}, (error, collection) => {
-    if (error) {
-      res.status(500).send(error)
-    } else {
-      const filtered =
-        req.body.data.type === 'collections'
-          ? collection
-          : collection.filter(
-              (el) =>
-                (el.data.isPublic && el.data.isActive) ||
-                (user && el.data.uid === user.uid)
-            )
+  getUser(userId?.uid).then((jedi) => {
+    const user = jedi[0]
+    getMod(req.body.data.type).find({}, (error, collection) => {
+      if (error) {
+        res.status(500).send(error)
+      } else {
+        const filtered =
+          req.body.data.type === 'collections'
+            ? collection
+            : collection.filter((el) => {
+                return (
+                  (el.data.isPublic && el.data.isActive) ||
+                  (user && el.data.uid === String(user._id)) ||
+                  (user && user.isAdmin)
+                )
+              })
 
-      res.status(200).json(filtered)
-    }
+        res.status(200).json(filtered)
+      }
+    })
   })
 })
 
