@@ -1,4 +1,9 @@
-import { collectionActions, createItem, setError } from '@bpgen/services'
+import {
+  collectionActions,
+  createItem,
+  setError,
+  setInfo,
+} from '@bpgen/services'
 import axios from 'axios'
 import isEmpty from 'lodash/isEmpty'
 import {

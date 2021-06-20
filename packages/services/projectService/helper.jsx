@@ -1,7 +1,7 @@
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
 import uniqueId from 'lodash/uniqueId'
-import { changeNodeAtPath, walk } from 'react-sortable-tree'
+import { changeNodeAtPath, walk } from 'react-sortable-tree-patch-react-17'
 
 export const getFlatForms = files => {
   let flatForms = []

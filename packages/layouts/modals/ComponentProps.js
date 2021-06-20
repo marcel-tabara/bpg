@@ -6,14 +6,14 @@ import isEmpty from 'lodash/isEmpty'
 import React from 'react'
 import Form from '@rjsf/material-ui'
 import { useDispatch } from 'react-redux'
-import { changeNodeAtPath } from 'react-sortable-tree'
+import { changeNodeAtPath } from 'react-sortable-tree-patch-react-17'
 import { useCustomForms } from '../hooks/useCustomForms'
 import { useModals } from '../hooks/useModals'
 import { useProjects } from '../hooks/useProjects'
 
 const getNodeKey = ({ treeIndex }) => treeIndex
 
-const ComponentProps = props => {
+const ComponentProps = (props) => {
   const dispatch = useDispatch()
   const { modals } = useModals()
   const { currentProject } = useProjects()
@@ -31,7 +31,7 @@ const ComponentProps = props => {
   const properties = schema.properties
   const propsInfo = get(node, 'componentProps', [])
 
-  propsInfo.map(prop => {
+  propsInfo.map((prop) => {
     const { title, propTypeVal, val, propTypeProp, description } = prop
 
     if (get(prop, 'propTypeProp', '').includes('boolean')) {
@@ -81,13 +81,13 @@ const ComponentProps = props => {
   const onSubmit = ({ formData }) => {
     const newProps = []
 
-    propsInfo.map(e => {
+    propsInfo.map((e) => {
       newProps.push({ ...e, val: formData[e.title] })
     })
 
     const newNode = { ...node }
     newNode.componentProps = newProps
-    const hasComponentPropsVals = newProps.filter(el => el.val)
+    const hasComponentPropsVals = newProps.filter((el) => el.val)
     newNode.hasComponentPropsVals = !isEmpty(hasComponentPropsVals)
 
     const newTree = changeNodeAtPath({
@@ -103,10 +103,10 @@ const ComponentProps = props => {
   }
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth="md">
       <Form schema={schema} uiSchema={uiSchema} onSubmit={onSubmit}>
-        <div className='padd_top_bott'>
-          <Button variant='contained' color='primary' type='submit'>
+        <div className="padd_top_bott">
+          <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
         </div>

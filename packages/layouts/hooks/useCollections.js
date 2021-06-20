@@ -11,8 +11,7 @@ export const useCollections = (id, el) => {
   const templates = useSelector(collectionSelectors.templatesSelector) || []
   const proptypes = useSelector(collectionSelectors.proptypesSelector) || []
 
-  const selectedCollection = collections.find(e => e._id === id) || {}
-
+  const selectedCollection = collections.find((e) => e._id === id) || {}
   const getData = () => {
     switch (get(selectedCollection, 'title', '')) {
       case 'components':
@@ -32,18 +31,18 @@ export const useCollections = (id, el) => {
     }
   }
 
-  const technosEnums = technos.map(e => e._id)
-  const technosEnumNames = technos.map(e => e.data.title)
+  const technosEnums = technos.map((e) => e._id)
+  const technosEnumNames = technos.map((e) => e.data.title)
 
-  const proptypesEnums = proptypes.map(e => e._id)
-  const proptypesEnumNames = proptypes.map(e => e.data.title)
+  const proptypesEnums = proptypes.map((e) => e._id)
+  const proptypesEnumNames = proptypes.map((e) => e.data.title)
 
-  const providersEnums = providers.map(e => e._id)
-  const providersEnumNames = providers.map(e => e.data.title)
+  const providersEnums = providers.map((e) => e._id)
+  const providersEnumNames = providers.map((e) => e.data.title)
 
   const data = !id ? [] : getData()
 
-  const selectedElement = data.find(e => e._id === el) || {}
+  const selectedElement = data.find((e) => e._id === el) || {}
 
   return {
     collections,

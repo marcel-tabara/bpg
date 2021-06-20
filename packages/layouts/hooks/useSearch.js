@@ -7,12 +7,13 @@ import { useAuth } from '../hooks/useAuth'
 export const useSearch = ({ searchData, isData }) => {
   const dispatch = useDispatch()
   const { keyword, techno = '', provider = '' } = searchData
-  const { providers, components, technos } = useCollections()
+  const { providers, components, technos, templates, selectedCollection } =
+    useCollections()
   const { user } = useAuth({}, false)
 
-  const hasComponents = useCallback(
-    (type, typeId, uid) => {
-      return components.some((c) =>
+  const hasData = useCallback(
+    (dataType, type, typeId, uid) => {
+      return dataType.some((c) =>
         isData
           ? c.data[type] === typeId && (c.data.uid === uid || user.isAdmin)
           : c.data[type] === typeId
@@ -23,7 +24,14 @@ export const useSearch = ({ searchData, isData }) => {
 
   const getFilteredTechnos = useCallback(() => {
     return technos.filter(
-      (e) => user.isAdmin || hasComponents('techno', e._id, user._id)
+      (e) =>
+        user.isAdmin ||
+        hasData(
+          selectedCollection.title === 'templates' ? templates : components,
+          'techno',
+          e._id,
+          user._id
+        )
     )
   }, [user.isAdmin, user._id])
 
@@ -31,7 +39,7 @@ export const useSearch = ({ searchData, isData }) => {
     return providers.filter((e) =>
       searchData.techno
         ? e.data.techno === searchData.techno &&
-          hasComponents('provider', e._id, user._id)
+          hasData(components, 'provider', e._id, user._id)
         : e
     )
   }

@@ -11,13 +11,15 @@ import get from 'lodash/get'
 import sortBy from 'lodash/sortBy'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import SortableTree, { removeNodeAtPath } from 'react-sortable-tree'
+import SortableTree, {
+  removeNodeAtPath,
+} from 'react-sortable-tree-patch-react-17'
 
 import { useCollections } from '../hooks/useCollections'
 import { useProjects } from '../hooks/useProjects'
 import { useSearchData } from '../hooks/useSearchData'
 
-import 'react-sortable-tree/style.css'
+import 'react-sortable-tree-patch-react-17/style.css'
 
 const externalNodeType = 'yourNodeType'
 const shouldCopyOnOutsideDrop = true
@@ -99,7 +101,6 @@ const SortTree = () => {
         }}
       >
         <SortableTree
-          isVirtualized={false}
           treeData={filteredDefaultTree()}
           onChange={() => console.log('changed')}
           dndType={externalNodeType}
@@ -124,7 +125,6 @@ const SortTree = () => {
         }}
       >
         <SortableTree
-          isVirtualized={false}
           treeData={projectTree}
           onChange={onChange}
           dndType={externalNodeType}
