@@ -15,7 +15,7 @@ export const useProjects = () => {
   const info = useSelector(projectSelectors.infoSelector)
 
   const currentTemplate = get(
-    templates.find(e => e._id === currentTemplateId),
+    templates.find((e) => e._id === currentTemplateId),
     'data',
     false
   )

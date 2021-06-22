@@ -14,13 +14,13 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import '../styles.scss'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: { flexGrow: 1 },
   title: { flexGrow: 1 },
 }))
 
 const NavBar = () => {
-  const go = route => navigate(route)
+  const go = (route) => navigate(route)
   const authenticated = useSelector(loginSelectors.loginSelector)
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -30,27 +30,27 @@ const NavBar = () => {
   }
   return (
     <div className={classes.root}>
-      <AppBar position='static'>
+      <AppBar position="static">
         <Toolbar>
-          <DeveloperModeIcon className='brand' onClick={() => go('/')} />
-          <Typography variant='h6' className={classes.title}>
+          <DeveloperModeIcon className="brand" onClick={() => go('/')} />
+          <Typography variant="h6" className={classes.title}>
             bpGen
           </Typography>
-          <Button color='inherit' onClick={() => go('/editor')}>
+          <Button color="inherit" onClick={() => go('/editor')}>
             Editor
           </Button>
           {authenticated && (
-            <Button color='inherit' onClick={() => go('/list')}>
+            <Button color="inherit" onClick={() => go('/list')}>
               Collections
             </Button>
           )}
           {!authenticated && (
-            <Button color='inherit' onClick={() => go('/login')}>
+            <Button color="inherit" onClick={() => go('/login')}>
               Login
             </Button>
           )}
           {authenticated && (
-            <Button color='inherit' onClick={logout}>
+            <Button color="inherit" onClick={logout}>
               Logout
             </Button>
           )}

@@ -11,7 +11,7 @@ import { useModals } from '../hooks/useModals'
 import { useCollections } from './../hooks/useCollections'
 import get from 'lodash/get'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   title: { flexGrow: 1 },
   root: {
     '& .MuiTextField-root': {
@@ -40,13 +40,13 @@ const ComponentInfo = () => {
   const { providers, technos, proptypes } = useCollections()
 
   const getComponentProps = () => {
-    return componentProps.map(e => {
+    return componentProps.map((e) => {
       return (
         <Accordion key={e.title}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls='panel1a-content'
-            id='panel1a-header'
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
             <Typography className={classes.heading}>
               {e.title} : {e.propTypeProp}
@@ -61,60 +61,60 @@ const ComponentInfo = () => {
   }
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth="md">
       <div className={classes.root}>
-        <Typography variant='h2' className={classes.title}>
+        <Typography variant="h2" className={classes.title}>
           {title}
         </Typography>
         <TextField
-          id='provider'
-          label='Provider'
-          variant='outlined'
-          color='secondary'
+          id="provider"
+          label="Provider"
+          variant="outlined"
+          color="secondary"
           defaultValue={get(
-            providers.find(e => e._id === provider),
+            providers.find((e) => e._id === provider),
             'data.title',
             ''
           )}
           disabled
         />
         <TextField
-          id='techno'
-          label='Techno'
-          variant='outlined'
-          color='secondary'
+          id="techno"
+          label="Techno"
+          variant="outlined"
+          color="secondary"
           defaultValue={get(
-            technos.find(e => e._id === techno),
+            technos.find((e) => e._id === techno),
             'data.title',
             ''
           )}
           disabled
         />
         <TextField
-          id='propType'
-          label='PropType'
-          variant='outlined'
-          color='secondary'
+          id="propType"
+          label="PropType"
+          variant="outlined"
+          color="secondary"
           defaultValue={get(
-            proptypes.find(e => e._id === propType),
+            proptypes.find((e) => e._id === propType),
             'data.title',
             ''
           )}
           disabled
         />
         <TextField
-          id='description'
-          label='Description'
+          id="description"
+          label="Description"
           multiline
-          rows='25'
+          rows="25"
           defaultValue={description}
-          variant='outlined'
+          variant="outlined"
           fullWidth
           disabled
         />
 
-        <div className='padded'>
-          <Typography variant='h4' className={classes.title}>
+        <div className="padded">
+          <Typography variant="h4" className={classes.title}>
             Props
           </Typography>
           {getComponentProps()}

@@ -10,7 +10,7 @@ const Ace = ({ code, currentTab, aceTabs }) => {
   const getAceContent = () => {
     if (isEmpty(code)) return ''
     return get(
-      code.filter(e => e.id === currentTab),
+      code.filter((e) => e.id === currentTab),
       '[0].code',
       ''
     )
@@ -18,15 +18,15 @@ const Ace = ({ code, currentTab, aceTabs }) => {
 
   return (
     <div>
-      <div className='paddingTop'>
+      <div className="paddingTop">
         <div>
           <AceTabs code={code} currentTab={currentTab} aceTabs={aceTabs} />
         </div>
 
         <AceEditor
-          mode='jsx'
-          theme='github'
-          name='ace-editor'
+          mode="jsx"
+          theme="github"
+          name="ace-editor"
           editorProps={{ $blockScrolling: true }}
           setOptions={{
             showLineNumbers: true,

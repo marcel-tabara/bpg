@@ -14,8 +14,8 @@ function TabPanel(props) {
 
   return (
     <Typography
-      component='div'
-      role='tabpanel'
+      component="div"
+      role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
@@ -32,7 +32,7 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
@@ -47,18 +47,18 @@ const AceTabs = ({ aceTabs, currentTab }) => {
     dispatch(setCurrentTab(aceTabs[newValue]))
 
   const renderTabs = () => {
-    return aceTabs.map(e => {
+    return aceTabs.map((e) => {
       return <Tab label={e} key={aceTabs.indexOf(e)} />
     })
   }
 
   return (
     <div className={classes.root}>
-      <AppBar position='static'>
+      <AppBar position="static">
         <Tabs
           value={aceTabs.indexOf(currentTab)}
           onChange={handleChange}
-          aria-label='simple tabs example'
+          aria-label="simple tabs example"
         >
           {renderTabs()}
         </Tabs>

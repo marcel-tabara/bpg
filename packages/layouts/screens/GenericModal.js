@@ -13,7 +13,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useModals } from '../hooks/useModals'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   appBar: { position: 'relative' },
   title: {
     padding: 2,
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction='up' ref={ref} {...props} />
+  return <Slide direction="up" ref={ref} {...props} />
 })
 
 export default function FullScreenDialog() {
@@ -35,9 +35,9 @@ export default function FullScreenDialog() {
   const handleClose = () => dispatch(removeModal())
 
   return (
-    <Container maxWidth='xl'>
+    <Container maxWidth="xl">
       <Dialog
-        maxWidth='md'
+        maxWidth="md"
         open={true}
         fullWidth={true}
         onClose={handleClose}
@@ -47,14 +47,14 @@ export default function FullScreenDialog() {
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
-              edge='start'
-              color='inherit'
+              edge="start"
+              color="inherit"
               onClick={handleClose}
-              aria-label='close'
+              aria-label="close"
             >
               <CloseIcon />
             </IconButton>
-            <Typography variant='h6'>
+            <Typography variant="h6">
               {currentModal.type.toUpperCase()}
             </Typography>
           </Toolbar>

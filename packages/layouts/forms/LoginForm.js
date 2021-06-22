@@ -35,10 +35,10 @@ const LoginForm = ({ navigate }) => {
   }
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth="md">
       <Form schema={schema} onSubmit={onSubmit} uiSchema={uiSchema}>
-        <div className='padd_top_bott'>
-          <Button variant='contained' color='primary' type='submit'>
+        <div className="padd_top_bott">
+          <Button variant="contained" color="primary" type="submit">
             Login
           </Button>
         </div>

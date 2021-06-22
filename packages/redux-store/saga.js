@@ -7,12 +7,8 @@ import { all, fork } from 'redux-saga/effects'
 
 export default function* sagas() {
   yield all(
-    [
-      backendSaga,
-      collectionSaga,
-      projectSaga,
-      codeGenSaga,
-      loginSaga,
-    ].map(saga => fork(saga))
+    [backendSaga, collectionSaga, projectSaga, codeGenSaga, loginSaga].map(
+      (saga) => fork(saga)
+    )
   )
 }

@@ -7,8 +7,8 @@ const AceWidget = ({ title, onChange, value }) => (
   <>
     <div>{title}</div>
     <AceEditor
-      mode='jsx'
-      theme='github'
+      mode="jsx"
+      theme="github"
       onChange={onChange}
       name={`${title}`}
       editorProps={{ $blockScrolling: true }}

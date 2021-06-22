@@ -14,7 +14,7 @@ import { useAuth } from '../hooks/useAuth'
 import AceWidget from '../components/AceWidget'
 import { useCollections } from '../hooks/useCollections'
 
-const CollectionDataForm = props => {
+const CollectionDataForm = (props) => {
   const { id, navigate, el } = props
   const { user } = useAuth(navigate)
   const dispatch = useDispatch()
@@ -63,13 +63,13 @@ const CollectionDataForm = props => {
   let schema = {}
   let uiSchema = {}
 
-  const AceWidgetWrapper = props => {
+  const AceWidgetWrapper = (props) => {
     const {
       schema: { title },
       onChange,
       value,
     } = props
-    const onValueChane = e => onChange(e)
+    const onValueChane = (e) => onChange(e)
 
     return <AceWidget title={title} onChange={onValueChane} value={value} />
   }
@@ -111,8 +111,8 @@ const CollectionDataForm = props => {
   const onChange = ({ formData }) => setFormState(formData)
 
   return (
-    <div className='wrapper'>
-      <Button onClick={goToDetails} color='primary' variant='outlined'>
+    <div className="wrapper">
+      <Button onClick={goToDetails} color="primary" variant="outlined">
         Back
       </Button>
       <Form
@@ -123,8 +123,8 @@ const CollectionDataForm = props => {
         widgets={widgets}
         //onChange={onChange}
       >
-        <div className='padd_top_bott'>
-          <Button variant='contained' color='primary' type='submit'>
+        <div className="padd_top_bott">
+          <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
         </div>

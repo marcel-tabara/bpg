@@ -49,12 +49,12 @@ const projectService = createSlice({
     setInfo: (state, action) => {
       state.info = action.payload
     },
-    resetAlert: state => {
+    resetAlert: (state) => {
       state.info = ''
       state.error = ''
     },
     exportFiles: () => {},
-    initCurrentProject: state => {
+    initCurrentProject: (state) => {
       state.currentProject = init
     },
   },

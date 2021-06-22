@@ -18,7 +18,7 @@ const CustomAlert = () => {
   const severity = error ? 'error' : 'success'
 
   return (
-    <div className='alert'>
+    <div className="alert">
       <Alert severity={severity} onClose={onClose}>
         {error || info}
       </Alert>

@@ -2,7 +2,7 @@ import { setError, setInfo } from '@bpgen/services'
 import axios from 'axios'
 import { call, put, takeLatest } from 'redux-saga/effects'
 
-const exportFiles = data => {
+const exportFiles = (data) => {
   return axios.post(`${process.env.API_URL}/exportFiles`, data)
 }
 

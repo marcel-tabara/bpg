@@ -12,22 +12,22 @@ export default function AlertDialog({ open, setAlertDialog, onConfirm }) {
     <Dialog
       open={open}
       onClose={onClose}
-      aria-labelledby='alert-dialog-title'
-      aria-describedby='alert-dialog-description'
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id='alert-dialog-title'>
+      <DialogTitle id="alert-dialog-title">
         Are you sure you want to delete?
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id='alert-dialog-description'>
+        <DialogContentText id="alert-dialog-description">
           This is irreversible.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color='primary'>
+        <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={onConfirm} color='primary' autoFocus>
+        <Button onClick={onConfirm} color="primary" autoFocus>
           OK
         </Button>
       </DialogActions>

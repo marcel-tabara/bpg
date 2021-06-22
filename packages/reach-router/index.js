@@ -27,16 +27,16 @@ const routes = (
   <div>
     <Suspense fallback={<Loading />}>
       <Router>
-        <Home path='/' />
-        <CollectionsForm path='form/:id' />
-        <CollectionsForm path='form' />
-        <CollectionList path='list' />
-        <CollectionData path='data/:id' />
-        <CollectionDataForm path='editdata/:id/:el' />
-        <Editor path='editor' />
-        <Editor path='editor/:id' />
-        <LoginForm path='login' />
-        <RegisterForm path='register' />
+        <Home path="/" />
+        <CollectionsForm path="form/:id" />
+        <CollectionsForm path="form" />
+        <CollectionList path="list" />
+        <CollectionData path="data/:id" />
+        <CollectionDataForm path="editdata/:id/:el" />
+        <Editor path="editor" />
+        <Editor path="editor/:id" />
+        <LoginForm path="login" />
+        <RegisterForm path="register" />
         <NotFound default />
       </Router>
     </Suspense>

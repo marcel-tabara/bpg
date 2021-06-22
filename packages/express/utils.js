@@ -30,7 +30,7 @@ const getModel = (type, data) => {
   }
 }
 
-const getMod = type => {
+const getMod = (type) => {
   switch (type) {
     case 'collections':
       return Collection

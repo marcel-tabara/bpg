@@ -13,13 +13,13 @@ const CollectionsForm = ({ navigate, id }) => {
   const { selectedCollection } = useCollections(id)
   const dispatch = useDispatch()
 
-  const AceWidgetWrapper = props => {
+  const AceWidgetWrapper = (props) => {
     const {
       schema: { title },
       onChange,
       value,
     } = props
-    const onValueChane = e => onChange(e)
+    const onValueChane = (e) => onChange(e)
 
     return <AceWidget title={title} onChange={onValueChane} value={value} />
   }
@@ -62,17 +62,18 @@ const CollectionsForm = ({ navigate, id }) => {
     formData._id
       ? dispatch(updateItem({ type, data }))
       : dispatch(createItem({ type, data }))
-    dispatch(collectionActions.getCollections())
+
     navigate('/list')
+    dispatch(collectionActions.getCollections())
   }
 
   return (
     <div>
       <Button
         onClick={() => navigate(`/list`)}
-        component='button'
-        color='primary'
-        variant='outlined'
+        component="button"
+        color="primary"
+        variant="outlined"
       >
         Back
       </Button>
@@ -83,8 +84,8 @@ const CollectionsForm = ({ navigate, id }) => {
         uiSchema={uiSchema}
         widgets={widgets}
       >
-        <div className='padd_top_bott'>
-          <Button variant='contained' color='primary' type='submit'>
+        <div className="padd_top_bott">
+          <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
         </div>
