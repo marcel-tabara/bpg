@@ -13,7 +13,7 @@ export default function configureAppStore(preloadedState) {
 
   const store = configureStore({
     reducer: rootReducer,
-    middleware: isDev ? [(logger, sagaMiddleware)] : [sagaMiddleware],
+    middleware: isDev ? [logger, sagaMiddleware] : [sagaMiddleware],
     preloadedState,
   })
 
