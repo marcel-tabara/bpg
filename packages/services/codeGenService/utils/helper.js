@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty'
 import reverse from 'lodash/reverse'
 import sortBy from 'lodash/sortBy'
 import uniqBy from 'lodash/uniqBy'
-import { getFlatDataFromTree } from 'react-sortable-tree-patch-react-17'
+import { getFlatDataFromTree } from 'react-sortable-tree'
 
 export const getFlatDataFromTree1 = getFlatDataFromTree
 export const _ = lodash

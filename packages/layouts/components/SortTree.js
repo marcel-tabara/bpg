@@ -11,15 +11,13 @@ import get from 'lodash/get'
 import sortBy from 'lodash/sortBy'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import SortableTree, {
-  removeNodeAtPath,
-} from 'react-sortable-tree-patch-react-17'
+import SortableTree, { removeNodeAtPath } from 'react-sortable-tree'
 
 import { useCollections } from '../hooks/useCollections'
 import { useProjects } from '../hooks/useProjects'
 import { useSearchData } from '../hooks/useSearchData'
 
-import 'react-sortable-tree-patch-react-17/style.css'
+import 'react-sortable-tree/style.css'
 
 const externalNodeType = 'yourNodeType'
 const shouldCopyOnOutsideDrop = true
